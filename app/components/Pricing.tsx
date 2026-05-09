@@ -120,7 +120,7 @@ export default function Pricing() {
 
               <div style={{ display: "flex", alignItems: "flex-end", gap: "2px", marginBottom: "8px" }}>
                 <span style={{ fontSize: "1.4rem", fontWeight: 400, lineHeight: 1, paddingBottom: "6px", color: "white" }}>$</span>
-                <span style={{ fontSize: "4.5rem", fontWeight: 300, lineHeight: 1, color: "white" }}>
+                <span style={{ fontSize: "3.2rem", fontWeight: 700, lineHeight: 1, color: "white", fontFamily: "var(--font-playfair)" }}>
                   {plan.price.replace("$", "")}
                 </span>
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", paddingBottom: "10px" }}>
