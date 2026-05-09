@@ -97,8 +97,8 @@ export default function Features() {
               App Preview
             </span>
             <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
-              Scorecards that feel{" "}
-              <em style={{ color: "#E9C46A" }}>native</em> on any device
+              Because your league deserves{" "}
+              <em style={{ color: "#E9C46A" }}>more than a spreadsheet.</em>
             </h3>
             <ul className="flex flex-col gap-4">
               {[
@@ -120,13 +120,13 @@ export default function Features() {
             </ul>
           </div>
 
-          {/* Phone mockup side */}
-          <div className="relative min-h-96 bg-[#2D6A4F]/30">
+          {/* Phone mockup side — full bleed, no padding */}
+          <div className="relative min-h-96">
             <Image
               src="/images/app-mockup.png"
               alt="OHMGolfness scorecard app on mobile"
               fill
-              className="object-contain object-bottom drop-shadow-2xl"
+              className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
