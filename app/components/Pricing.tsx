@@ -78,11 +78,11 @@ export default function Pricing() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-2xl p-8 flex flex-col gap-6 relative ${
+              className={`rounded-2xl p-8 flex flex-col relative ${
                 plan.featured
                   ? "border-2 ring-1"
                   : "border border-white/10"
@@ -106,7 +106,7 @@ export default function Pricing() {
                 </div>
               )}
 
-              <div>
+              <div className="mb-6">
                 <h3
                   className="font-display font-bold text-xl mb-1"
                   style={{ color: plan.featured ? "#C9A84C" : "white" }}
@@ -116,25 +116,30 @@ export default function Pricing() {
                 <p className="text-white/50 text-sm">{plan.description}</p>
               </div>
 
-              <div className="flex items-baseline gap-1">
-                <span className="font-display font-black text-5xl text-white">
+              <div className="flex items-baseline gap-1 mb-6">
+                <span className="font-display font-black text-5xl leading-none text-white">
                   {plan.price}
                 </span>
-                <span className="text-white/40 text-sm">/{plan.period}</span>
+                <span className="text-white/40 text-sm leading-none">/{plan.period}</span>
               </div>
 
               <ul className="flex flex-col gap-3 flex-1">
                 {plan.features.map((f) => (
-                  <li key={f} className="flex items-center gap-3 text-white/70 text-sm">
-                    <span style={{ color: "#52B788" }}>✓</span>
-                    {f}
+                  <li key={f} className="flex items-center gap-2 text-white/70 text-sm">
+                    <span
+                      className="flex-shrink-0 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold leading-none"
+                      style={{ backgroundColor: "#52B788", color: "#1A3D2B" }}
+                    >
+                      ✓
+                    </span>
+                    <span>{f}</span>
                   </li>
                 ))}
               </ul>
 
               <a
                 href={plan.href}
-                className={`block text-center py-3 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 ${
+                className={`mt-6 block text-center py-3 px-6 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 ${
                   plan.featured ? "" : "border border-white/20 text-white hover:bg-white/10"
                 }`}
                 style={

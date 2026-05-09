@@ -121,16 +121,14 @@ export default function Features() {
           </div>
 
           {/* Phone mockup side */}
-          <div className="relative flex items-end justify-center pt-12 px-8 overflow-hidden bg-[#2D6A4F]/30">
-            <div className="relative w-64 h-96">
-              <Image
-                src="/images/app-mockup.png"
-                alt="OHMGolfness scorecard app on mobile"
-                fill
-                className="object-contain object-bottom drop-shadow-2xl"
-                sizes="(max-width: 768px) 256px, 256px"
-              />
-            </div>
+          <div className="relative min-h-96 bg-[#2D6A4F]/30">
+            <Image
+              src="/images/app-mockup.png"
+              alt="OHMGolfness scorecard app on mobile"
+              fill
+              className="object-contain object-bottom drop-shadow-2xl"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
         </div>
       </div>
