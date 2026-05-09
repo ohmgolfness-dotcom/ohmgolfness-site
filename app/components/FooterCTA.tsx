@@ -1,6 +1,10 @@
 "use client";
 
+import { useModal } from "@/app/context/ModalContext";
+
 export default function FooterCTA() {
+  const { openModal } = useModal();
+
   return (
     <section
       id="waitlist"
@@ -35,26 +39,15 @@ export default function FooterCTA() {
           the waitlist and lock in your founding member rate.
         </p>
 
-        <form
-          className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-          onSubmit={(e) => e.preventDefault()}
+        <button
+          onClick={openModal}
+          className="px-10 py-4 rounded-full font-semibold text-base transition-all duration-200 hover:scale-105"
+          style={{ backgroundColor: "#C9A84C", color: "#1A3D2B" }}
         >
-          <input
-            type="email"
-            placeholder="your@email.com"
-            required
-            className="flex-1 px-5 py-3.5 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:border-[#C9A84C] focus:bg-white/15 transition-all"
-          />
-          <button
-            type="submit"
-            className="px-7 py-3.5 rounded-full font-semibold text-sm transition-all duration-200 hover:scale-105 whitespace-nowrap"
-            style={{ backgroundColor: "#C9A84C", color: "#1A3D2B" }}
-          >
-            Join Waitlist
-          </button>
-        </form>
+          Get Started Free
+        </button>
 
-        <p className="text-white/40 text-xs mt-4">
+        <p className="text-white/40 text-xs mt-6">
           No spam. Unsubscribe anytime. We&apos;ll only email you about OHMGolfness.
         </p>
       </div>

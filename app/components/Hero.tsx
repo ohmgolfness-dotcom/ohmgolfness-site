@@ -1,4 +1,5 @@
 import Image from "next/image";
+import WaitlistButton from "./WaitlistButton";
 
 export default function Hero() {
   return (
@@ -49,13 +50,12 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <a
-            href="#waitlist"
+          <WaitlistButton
             className="px-8 py-4 rounded-full font-medium text-base transition-all duration-200 hover:scale-105"
             style={{ backgroundColor: "#C9A84C", color: "#1A3D2B" }}
           >
             Join the Waitlist
-          </a>
+          </WaitlistButton>
           <a
             href="#features"
             className="px-8 py-4 rounded-full font-medium text-base border border-white/40 text-white hover:bg-white/10 transition-all duration-200"

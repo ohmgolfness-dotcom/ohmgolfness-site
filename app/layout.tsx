@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans } from "next/font/google";
 import "./globals.css";
+import { ModalProvider } from "@/app/context/ModalContext";
+import IntakeModal from "@/app/components/IntakeModal";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -52,7 +54,12 @@ export default function RootLayout({
       lang="en"
       className={`${playfair.variable} ${dmSans.variable} h-full`}
     >
-      <body className="min-h-full antialiased">{children}</body>
+      <body className="min-h-full antialiased">
+        <ModalProvider>
+          {children}
+          <IntakeModal />
+        </ModalProvider>
+      </body>
     </html>
   );
 }

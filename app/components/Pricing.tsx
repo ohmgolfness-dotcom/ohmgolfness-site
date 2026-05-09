@@ -1,3 +1,5 @@
+import WaitlistButton from "./WaitlistButton";
+
 const plans = [
   {
     name: "Starter",
@@ -137,19 +139,27 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <a
-                href={plan.href}
-                className={`mt-6 block text-center py-3 px-6 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 ${
-                  plan.featured ? "" : "border border-white/20 text-white hover:bg-white/10"
-                }`}
-                style={
-                  plan.featured
-                    ? { backgroundColor: "#C9A84C", color: "#1A3D2B" }
-                    : {}
-                }
-              >
-                {plan.cta}
-              </a>
+              {plan.name === "Club" ? (
+                <a
+                  href={plan.href}
+                  className="mt-6 block text-center py-3 px-6 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/10 transition-all duration-200 hover:scale-105"
+                >
+                  {plan.cta}
+                </a>
+              ) : (
+                <WaitlistButton
+                  className={`mt-6 block w-full text-center py-3 px-6 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 ${
+                    plan.featured ? "" : "border border-white/20 text-white hover:bg-white/10"
+                  }`}
+                  style={
+                    plan.featured
+                      ? { backgroundColor: "#C9A84C", color: "#1A3D2B" }
+                      : {}
+                  }
+                >
+                  {plan.cta}
+                </WaitlistButton>
+              )}
             </div>
           ))}
         </div>

@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useModal } from "@/app/context/ModalContext";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { openModal } = useModal();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -58,12 +60,12 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
-          <a
-            href="#waitlist"
+          <button
+            onClick={openModal}
             className="px-5 py-2.5 rounded-full text-sm font-medium bg-[#C9A84C] text-[#1A3D2B] hover:bg-[#E9C46A] transition-colors duration-200"
           >
             Join Waitlist
-          </a>
+          </button>
         </nav>
 
         {/* Mobile hamburger */}
@@ -103,13 +105,12 @@ export default function Nav() {
               {l.label}
             </a>
           ))}
-          <a
-            href="#waitlist"
-            onClick={() => setOpen(false)}
+          <button
+            onClick={() => { setOpen(false); openModal(); }}
             className="px-5 py-2.5 rounded-full text-sm font-medium bg-[#C9A84C] text-[#1A3D2B] text-center hover:bg-[#E9C46A] transition-colors"
           >
             Join Waitlist
-          </a>
+          </button>
         </div>
       )}
     </header>
