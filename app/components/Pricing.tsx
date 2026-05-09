@@ -118,12 +118,14 @@ export default function Pricing() {
                 <p className="text-white/50 text-sm">{plan.description}</p>
               </div>
 
-              <div className="flex items-baseline gap-0.5 mb-6">
-                <span className="font-display font-bold text-2xl leading-none text-white">$</span>
-                <span className="font-display font-black leading-none text-white" style={{ fontSize: "3.5rem" }}>
+              <div style={{ display: "flex", alignItems: "flex-end", gap: "2px", marginBottom: "8px" }}>
+                <span style={{ fontSize: "1.4rem", fontWeight: 400, lineHeight: 1, paddingBottom: "6px", color: "white" }}>$</span>
+                <span style={{ fontSize: "4.5rem", fontWeight: 300, lineHeight: 1, color: "white" }}>
                   {plan.price.replace("$", "")}
                 </span>
-                <span className="text-white/40 text-sm leading-none ml-1">/{plan.period}</span>
+                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.5)", paddingBottom: "10px" }}>
+                  /{plan.period}
+                </span>
               </div>
 
               <ul className="flex flex-col gap-3 flex-1">
