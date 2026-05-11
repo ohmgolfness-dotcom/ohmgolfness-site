@@ -3,8 +3,6 @@ import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import type Stripe from "stripe";
 
-export const config = { api: { bodyParser: false } };
-
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const { userId, tier } = session.metadata ?? {};
   if (!userId || !tier) return;
