@@ -1,0 +1,190 @@
+// OHMGolfness Phase 4 — Prisma Schema
+// Prisma 7.x — datasource URL configured in prisma.config.ts
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum Tier {
+  starter
+  pro
+  club
+}
+
+enum TournamentFormat {
+  scramble
+  shamble
+  best_ball
+  stroke
+  stableford
+}
+
+enum TournamentStatus {
+  draft
+  active
+  completed
+}
+
+// ─── 4.1 Users ───────────────────────────────────────────────────────────────
+
+model User {
+  id               String    @id @default(uuid())
+  email            String    @unique
+  name             String
+  passwordHash     String?
+  stripeCustomerId String?
+  tier             Tier      @default(starter)
+  createdAt        DateTime  @default(now())
+
+  leagues          League[]
+  tournaments      Tournament[]
+
+  @@map("users")
+}
+
+// ─── 4.2 Leagues ─────────────────────────────────────────────────────────────
+
+model League {
+  id           String   @id @default(uuid())
+  ownerId      String
+  name         String
+  slug         String   @unique
+  logoUrl      String?
+  template     String
+  tier         Tier     @default(starter)
+  customDomain String?
+  createdAt    DateTime @default(now())
+
+  owner        User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  players      Player[]
+  rounds       Round[]
+
+  @@map("leagues")
+}
+
+// ─── 4.3 Players ─────────────────────────────────────────────────────────────
+
+model Player {
+  id         String   @id @default(uuid())
+  leagueId   String
+  name       String
+  email      String?
+  handicap   Decimal  @default(0)
+  yearJoined Int?
+  createdAt  DateTime @default(now())
+
+  league     League   @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  scores     Score[]
+
+  @@map("players")
+}
+
+// ─── 4.4 Rounds ──────────────────────────────────────────────────────────────
+
+model Round {
+  id         String   @id @default(uuid())
+  leagueId   String
+  courseName String
+  playedAt   DateTime @db.Date
+  holes      Int
+  createdAt  DateTime @default(now())
+
+  league     League   @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  scores     Score[]
+
+  @@map("rounds")
+}
+
+// ─── 4.5 Scores ──────────────────────────────────────────────────────────────
+
+model Score {
+  id        String   @id @default(uuid())
+  roundId   String
+  playerId  String
+  hole      Int
+  strokes   Int
+  isKp      Boolean  @default(false)
+  isSkin    Boolean  @default(false)
+  isBirdie  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  round     Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
+  player    Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@map("scores")
+}
+
+// ─── 4.6 Tournaments ─────────────────────────────────────────────────────────
+
+model Tournament {
+  id                String           @id @default(uuid())
+  ownerId           String
+  name              String
+  slug              String           @unique
+  tagline           String?
+  logoUrl           String?
+  template          String
+  format            TournamentFormat
+  teamSize          Int
+  holes             Int
+  handicapEnabled   Boolean          @default(false)
+  entryFee          Decimal?
+  payout1st         Decimal?
+  payout2nd         Decimal?
+  payout3rd         Decimal?
+  charityName       String?
+  charityAmount     Decimal?
+  kpHoles           Int[]
+  hasLongestDrive   Boolean          @default(false)
+  hasMulligans      Boolean          @default(false)
+  stripePaymentId   String?
+  isPaid            Boolean          @default(false)
+  playedAt          DateTime?        @db.Date
+  status            TournamentStatus @default(draft)
+  createdAt         DateTime         @default(now())
+
+  owner             User                 @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  teams             TournamentTeam[]
+  tournamentScores  TournamentScore[]
+
+  @@map("tournaments")
+}
+
+// ─── 4.7 Tournament Teams ────────────────────────────────────────────────────
+
+model TournamentTeam {
+  id            String   @id @default(uuid())
+  tournamentId  String
+  name          String
+  captainName   String?
+  createdAt     DateTime @default(now())
+
+  tournament    Tournament        @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  scores        TournamentScore[]
+
+  @@map("tournament_teams")
+}
+
+// ─── 4.8 Tournament Scores ───────────────────────────────────────────────────
+
+model TournamentScore {
+  id           String   @id @default(uuid())
+  tournamentId String
+  teamId       String
+  hole         Int
+  strokes      Int
+  isKp         Boolean  @default(false)
+  createdAt    DateTime @default(now())
+
+  tournament   Tournament     @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  team         TournamentTeam @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("tournament_scores")
+}
