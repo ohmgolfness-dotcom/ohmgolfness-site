@@ -52,15 +52,20 @@ model User {
 // ─── 4.2 Leagues ─────────────────────────────────────────────────────────────
 
 model League {
-  id           String   @id @default(uuid())
-  ownerId      String
-  name         String
-  slug         String   @unique
-  logoUrl      String?
-  template     String
-  tier         Tier     @default(starter)
-  customDomain String?
-  createdAt    DateTime @default(now())
+  id            String   @id @default(uuid())
+  ownerId       String
+  name          String
+  slug          String   @unique
+  tagline       String?
+  logoUrl       String?
+  template      String
+  tier          Tier     @default(starter)
+  customDomain  String?
+  playerCount   String?
+  scoringFormat String?
+  holes         Int      @default(18)
+  features      String[]
+  createdAt     DateTime @default(now())
 
   owner        User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   players      Player[]
